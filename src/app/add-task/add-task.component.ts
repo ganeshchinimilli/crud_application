@@ -16,7 +16,7 @@ export class AddTaskComponent implements OnInit {
   STATUS_LIST:any = constants.STATUS_LIST;
   PRIORITY_LIST:any = constants.PRIORITY_LIST;
   title:any='Add Task';
-  constructor(public commonService:CommonService,public router:Router,public activatedRoute:ActivatedRoute,public fb:FormBuilder,public toastrService:ToastrService) {
+  constructor(public commonService:CommonService,public router:Router,public activatedRoute:ActivatedRoute,public fb:FormBuilder) {
     this.taskForm = this.fb.group({
       id:[''],
       name:['',Validators.required],
@@ -39,7 +39,7 @@ export class AddTaskComponent implements OnInit {
         if(data){
           this.taskForm.patchValue(data);
         }else{
-
+          this.commonService.showToast(false,'Task not found');
           this.router.navigate(['']);
         }
       })
@@ -51,9 +51,10 @@ export class AddTaskComponent implements OnInit {
       var form_data = this.taskForm.value;
       this.commonService.addTask(form_data,this.edit_id).subscribe((data:any) => {
         if(data && data?.success){
+          this.commonService.showToast(true,data.message);
           this.router.navigate(['']);
         }else{
-          this.toastrService.success('Message Success!', 'Title Success!');
+          this.commonService.showToast(data.success,data.message);
         }
       })
     }else{

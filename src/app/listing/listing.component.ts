@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import constants from 'src/common/constants';
 import { CommonService } from 'src/services/common.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listing',
@@ -41,13 +42,31 @@ export class ListingComponent implements OnInit,OnDestroy {
     this.router.navigate(['edit_task',id]);
   }
   deleteRecord(id:any){
-    this.commonService.deleteTask(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data:any) => {
-      this.commonService.showToast(data.success,data.message);
-    })
+   Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result:any) => {
+    if (result.isConfirmed) {
+      this.commonService.deleteTask(id)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((data: any) => {
+        });
+    }
+  });
 
   }
   getListData(){
     this.commonService.getRecordsData().pipe(takeUntil(this.unsubscribe$)).subscribe((data:any) => {
+      this.filterData = {
+        name: '',
+        status: '',
+        priority: ''
+      };
       this.allRecordsData = data;
       this.recordsData = [...data];
     });

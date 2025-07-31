@@ -26,7 +26,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 15000, // 15 seconds
+      timeOut: 5000, // 15 seconds
       closeButton: false,
       progressBar: true,
     }),
