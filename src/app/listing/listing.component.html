@@ -1,0 +1,52 @@
+<!-- generate a bootstrap table to show the list of tasks list and a add button at right side and edit and delete actions also -->
+
+<div>
+  <h3>Task List</h3>
+  <button type="button" class="btn btn-primary" routerLink="/add_task">Add Task</button>
+</div>
+<app-filters (filterEvent)="filterDataFunc($event)" [filterData]="filterData"></app-filters>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <ng-container *ngFor="let header of table_headers_list | convertObjectArray">
+              <th>{{header.value}}</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="recordsData.length === 0">
+            <h5>No records found</h5>
+          </ng-container>
+          <ng-container *ngIf="recordsData.length > 0">
+          </ng-container>
+          <tr *ngFor="let record of recordsData; let i = index">
+            <ng-container *ngFor="let header of table_headers_list | convertObjectArray">
+              <td *ngIf="header.key == 'status'">
+                  <span>{{record[header.key] | getNameFilter :STATUS_LIST}}</span>
+              </td>
+              <td *ngIf="header.key == 'priority'">
+                <span>{{record[header.key] | getNameFilter :PRIORITY_LIST}}</span>
+              </td>
+              <td *ngIf="header.key =='createdDate' || header.key == 'dueDate'">
+                <span>{{record[header.key] | convertDateFormat}}</span>
+              </td>
+              <td *ngIf="header.key == 'id'">
+                {{i+1}}
+              </td>
+              <td *ngIf="header.key == 'name' || header.key == 'description'">
+                <span>{{record[header.key]}}</span>
+              </td>
+              <td *ngIf="header.key === 'actions'">
+                <button type="button" class="btn btn-primary" (click)="editRecord(record.id)">Edit</button>
+                <button type="button" class="btn btn-danger" (click)="deleteRecord(record.id)">Delete</button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

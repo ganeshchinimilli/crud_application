@@ -1,0 +1,15 @@
+<div >
+  <input type="text" placeholder="Search" [(ngModel)]="filterData.name" (keyup)="filterDataFunc()"/>
+  <select [(ngModel)]="filterData.status" (change)="filterDataFunc()">
+    <option value="">All</option>
+    <option *ngFor="let status of STATUS_LIST" value="{{status.id}}">{{status.name}}</option>
+  </select>
+  <select [(ngModel)]="filterData.priority" (change)="filterDataFunc()">
+    <option value="">All</option>
+    <option *ngFor="let priority of PRIORITY_LIST" value="{{priority.id}}">{{priority.name}}</option>
+  </select>
+  <div *ngIf="is_filter_applied">
+    <button type="button" class="btn btn-primary" (click)="resetFilter()">Reset</button>
+  </div>
+
+</div>
