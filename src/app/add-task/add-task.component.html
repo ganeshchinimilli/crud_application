@@ -1,47 +1,53 @@
 <!-- create a task form with header -->
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="container d-flex align-item-center justify-content-center">
+      <div class="card col-6">
+        <div class="row">
+          <div class="col-md-12 header">
+            <h3>{{title}}</h3>
+          </div>
+        </div>
+        <div>
+          <div [formGroup]="taskForm">
+            <div class="row wrap">
+              <div class="form-group col-6">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+              </div>
+              <div class="form-group col-6">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" formControlName="status">
+                  <ng-container *ngFor="let status of STATUS_LIST">
+                    <option value="{{status.id}}">{{status.name}}</option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="form-group col-6">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" formControlName="priority">
+                  <ng-container *ngFor="let priority of PRIORITY_LIST">
+                    <option value="{{priority.id}}">{{priority.name}}</option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="form-group col-6">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" id="dueDate" formControlName="dueDate" >
+              </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Add Task</h3>
-    </div>
-  </div>
-</div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+              </div>
+              <div class="text-center col-12 ">
+                 <button type="submit" class="btn btn-light col-4 mx-8" (click)="goBack()">Back</button>
+                <button type="submit" class="btn btn-success col-4" (click)="addTask()">{{edit_id ? 'Update' : 'Add'}}
+                  Task</button>
 
-<div >
-  <div [formGroup]="taskForm">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="status">Status</label>
-            <select class="form-control" id="status" formControlName="status">
-              <ng-container *ngFor="let status of STATUS_LIST">
-                <option value="{{status.id}}">{{status.name}}</option>
-              </ng-container>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="priority">Priority</label>
-            <select class="form-control" id="priority" formControlName="priority">
-              <ng-container *ngFor="let priority of PRIORITY_LIST">
-                <option value="{{priority.id}}">{{priority.name}}</option>
-              </ng-container>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="dueDate">Due Date</label>
-            <input type="date" class="form-control" id="dueDate" formControlName="dueDate">
-          </div>
-          <button type="submit" class="btn btn-primary" (click)="addTask()">{{edit_id ? 'Update' : 'Add'}} Task</button>
         </div>
       </div>
     </div>

@@ -61,5 +61,8 @@ export class AddTaskComponent implements OnInit {
       this.taskForm.markAllAsTouched();
     }
   }
+  goBack(){
+    this.router.navigate(['']);
+  }
 
 }

@@ -42,7 +42,7 @@ export class ListingComponent implements OnInit,OnDestroy {
     this.router.navigate(['edit_task',id]);
   }
   deleteRecord(id:any){
-   Swal.fire({
+     Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
     icon: 'warning',

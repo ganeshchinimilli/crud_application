@@ -1,15 +1,25 @@
-<div >
-  <input type="text" placeholder="Search" [(ngModel)]="filterData.name" (keyup)="filterDataFunc()"/>
-  <select [(ngModel)]="filterData.status" (change)="filterDataFunc()">
-    <option value="">All</option>
-    <option *ngFor="let status of STATUS_LIST" value="{{status.id}}">{{status.name}}</option>
-  </select>
-  <select [(ngModel)]="filterData.priority" (change)="filterDataFunc()">
-    <option value="">All</option>
-    <option *ngFor="let priority of PRIORITY_LIST" value="{{priority.id}}">{{priority.name}}</option>
-  </select>
-  <div *ngIf="is_filter_applied">
-    <button type="button" class="btn btn-primary" (click)="resetFilter()">Reset</button>
+<div class="d-flex align-item-center justify-content-between">
+   <div class="d-flex align-item-center justify-content-start">
+    <div>
+      <select [(ngModel)]="filterData.status" class="form-select" (change)="filterDataFunc()">
+        <option value="">All Status</option>
+        <option *ngFor="let status of STATUS_LIST" value="{{status.id}}">{{status.name}}</option>
+      </select>
+    </div>
+    <div class="mx-8">
+      <select [(ngModel)]="filterData.priority" class="form-select mx-8" (change)="filterDataFunc()">
+        <option value="">All Priority</option>
+        <option *ngFor="let priority of PRIORITY_LIST" value="{{priority.id}}">{{priority.name}}</option>
+      </select>
+    </div>
+    <div *ngIf="is_filter_applied" class="mx-8" >
+      <button type="button" class="btn btn-outline-primary" (click)="resetFilter()"><i class="fa-solid fa-rotate-right"></i></button>
+    </div>
   </div>
+  <div class="d-flex input-search">
+    <input class="form-control" type="text" placeholder="Search Name" [(ngModel)]="filterData.name" (keyup)="filterDataFunc()"/>
+    <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+  </div>
+
 
 </div>
