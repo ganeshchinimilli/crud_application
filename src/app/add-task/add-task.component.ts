@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import constants from 'src/common/constants';
 import { CommonService } from 'src/services/common.service';
 
@@ -15,7 +16,7 @@ export class AddTaskComponent implements OnInit {
   STATUS_LIST:any = constants.STATUS_LIST;
   PRIORITY_LIST:any = constants.PRIORITY_LIST;
   title:any='Add Task';
-  constructor(public commonService:CommonService,public router:Router,public activatedRoute:ActivatedRoute,public fb:FormBuilder) {
+  constructor(public commonService:CommonService,public router:Router,public activatedRoute:ActivatedRoute,public fb:FormBuilder,public toastrService:ToastrService) {
     this.taskForm = this.fb.group({
       id:[''],
       name:['',Validators.required],
@@ -52,7 +53,7 @@ export class AddTaskComponent implements OnInit {
         if(data && data?.success){
           this.router.navigate(['']);
         }else{
-
+          this.toastrService.success('Message Success!', 'Title Success!');
         }
       })
     }else{

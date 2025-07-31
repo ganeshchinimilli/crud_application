@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import constants from 'src/common/constants';
 import { CommonService } from 'src/services/common.service';
@@ -30,7 +31,7 @@ export class ListingComponent implements OnInit,OnDestroy {
   };
   allRecordsData:any;
   private unsubscribe$ = new Subject<void>();
-  constructor(public commonService:CommonService,public router:Router,public activatedRoute:ActivatedRoute) {
+  constructor(public commonService:CommonService,public router:Router,public activatedRoute:ActivatedRoute,public toast:ToastrService) {
 
   }
   ngOnInit(){
@@ -41,8 +42,7 @@ export class ListingComponent implements OnInit,OnDestroy {
   }
   deleteRecord(id:any){
     this.commonService.deleteTask(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data:any) => {
-      if(data.success){
-      }
+      this.commonService.showToast(data.success,data.message);
     })
 
   }

@@ -9,6 +9,9 @@ import { PipeModule } from 'src/pipes/pipe.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { FiltersComponent } from './filters/filters.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Add this import
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,12 @@ import { FiltersComponent } from './filters/filters.component';
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 15000, // 15 seconds
+      closeButton: false,
+      progressBar: true,
+    }),
     AppRoutingModule,
     PipeModule
   ],

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import ApiUrl from '../common/constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class CommonService {
       description:"Description 1",
       status:1,
       priority:1,
-      dueDate:"2023-05-01",
-      createdDate:"2023-05-01",
+      dueDate:"2025-07-31",
+      createdDate:"2025-07-31",
     },
     {
       id:2,
@@ -23,8 +24,8 @@ export class CommonService {
       description:"Description 2",
       status:2,
       priority:2,
-      dueDate:"2023-05-01",
-      createdDate:"2023-05-01",
+      dueDate:"2025-07-28",
+      createdDate:"2025-07-30",
     },
     {
       id:3,
@@ -32,13 +33,13 @@ export class CommonService {
       description:"Description 3",
       status:3,
       priority:3,
-      dueDate:"2023-05-01",
-      createdDate:"2023-05-01",
+      dueDate:"2025-08-04",
+      createdDate:"2025-07-29",
     }
   ]
   );
 
-  constructor() { }
+  constructor(private toastrService:ToastrService) { }
   getRecordsData():Observable<any> {
     return this.recordsData$.asObservable();
   }
@@ -53,6 +54,13 @@ export class CommonService {
     return of(foundTask);
   }
 
+  showToast(status:any,message:any){
+    if(status){
+      this.toastrService.success(message, '');
+    }else{
+      this.toastrService.error(message, '');
+    }
+  }
   addTask(data:any,id:any=0):Observable<any> {
     var tasks_data = this.recordsData$.getValue();
     const existingTask = tasks_data.find((task: any) =>
